@@ -2,7 +2,7 @@
 
 def is_prime(n):
   ans = True
-  for divisor in range(101):
+  for divisor in range(n):
     if (divisor != 0 and divisor != 1 and divisor != n): 
       for whole_num in range(101):
           if n/divisor == whole_num:

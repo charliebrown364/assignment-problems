@@ -3,8 +3,8 @@
 #part a
 def first_n_terms(n):
   ans = [5]
-  for num in range(1, n):
-    ans.append((3 * ans[len(ans) -1]) - 4)
+  for num in range(n - 1):
+    ans.append((3 * ans[-1]) - 4)
   return ans
 
 print('Testing first_n_terms on the input {}...'.format([5, 11, 29, 83, 245, 731, 2189, 6563, 19685, 59051]))

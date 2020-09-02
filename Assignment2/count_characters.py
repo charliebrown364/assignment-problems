@@ -2,7 +2,7 @@
 
 def count_characters(input_string):
   ans = {}
-
+  
   for char in input_string.lower():
 
     if str(char) not in ans.keys():
