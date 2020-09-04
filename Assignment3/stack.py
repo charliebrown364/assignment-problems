@@ -18,6 +18,7 @@ s = Stack()
 print("Asserting that s.data == {}".format([]))
 assert s.data == []
 print("PASSED")
+
 s.push('a')
 s.push('b')
 s.push('c')

@@ -71,9 +71,16 @@ def part_c(encoded_message):
                     this_ans += " "
                 else:
                     this_ans += chr(integer_part + 96)
+            
             if this_ans != '' and len(this_ans) > 2:
                 ans_array.append(this_ans)
-    return ans_array
+    
+    ans = ""
+    for ans_string in ans_array:
+        ans += ans_string + "\n"
+    
+    return ans
+    
 
 print("\npart c:")
 print(part_c([377, 717, 71, 513, 105, 921, 581, 547, 547, 105, 377, 717, 241, 71, 105, 547, 71, 377, 547, 717, 751, 683, 785, 513, 241, 547, 751]))
