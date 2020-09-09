@@ -21,3 +21,30 @@ def nth_term(n):
 print('Testing nth_term on the input {}...'.format(10))
 assert nth_term(10) == 59051
 print('PASSED')
+
+# Quiz 1
+def nth_term(n):
+    if n == 2:
+        return 3
+    elif n == 1:
+        return 0
+    else:
+        return nth_term(n - 1) - (2 * nth_term(n - 2))
+
+# nth_term(6)
+# nth_term(5) - (2 * nth_term(4))
+# nth_term(4) - (2 * nth_term(3)) - (2 * nth_term(4))
+# nth_term(3) - (2 * nth_term(2)) - (2 * nth_term(3)) - (2 * nth_term(4))
+# nth_term(2) - (2 * nth_term(1)) - (2 * nth_term(2)) - (2 * nth_term(3)) - (2 * nth_term(4))
+# 3 - (2 * 0) - (2 * 3) - (2 * nth_term(3)) - (2 * nth_term(4))
+# -3 - (2 * nth_term(3)) - (2 * nth_term(4))
+# -3 - (2 * (nth_term(2) - (2 * nth_term(1))))) - (2 * nth_term(4))
+# -3 - (2 * (3 - (2 * 1)))) - (2 * nth_term(4))
+# -5 - (2 * nth_term(4))
+# -5 - (2 * (nth_term(3) - (2 * nth_term(2)))))
+# -5 - (2 * ((nth_term(2) - (2 * nth_term(1))) - (2 * nth_term(2)))))
+# -5 - (2 * ((3 - (2 * 0)) - (2 * 3))))
+# 1
+
+print("\nQuiz 1:")
+print(nth_term(5)) # should equal 1
