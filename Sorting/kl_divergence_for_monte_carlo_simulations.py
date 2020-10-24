@@ -1,11 +1,7 @@
 import math
 from random import random
 
-def factorial(n):
-    if n == 0:
-      return 1
-    else:
-      return n * factorial(n-1)
+def factorial(n): return 1 if n == 0 else n * factorial(n - 1)
 
 def monte_carlo_probability(num_heads, num_flips, num_samples):
     outcomes = [[['h', 't'][round(random())] for flips in range(num_flips)] for num in range(num_samples)]
@@ -21,15 +17,12 @@ def monte_carlo_probability(num_heads, num_flips, num_samples):
 
     return times_it_was_correct / num_samples
 
-def ln(x):
-    return math.log(x)
-
 # part a
 def kl_divergence(p, q):
     ans = 0
     for n in range(len(p)):
         if p[n] and q[n] != 0:
-            ans += p[n] * ln(p[n] / q[n])
+            ans += p[n] * math.log(p[n] / q[n])
     return round(ans, 6)
 
 p = [0.2, 0.5, 0, 0.3]

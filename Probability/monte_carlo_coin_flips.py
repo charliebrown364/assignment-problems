@@ -1,14 +1,6 @@
-def factorial(n):
-    if n == 0:
-      return 1
-    else:
-      return n * factorial(n-1)
+def factorial(n): return 1 if n == 0 else n * factorial(n-1)
 
-# part a
-def probability(h, f):
-    num_outcomes = 2 ** f
-    num_outcomes_with_h_in_f = factorial(f) / (factorial(h) * factorial(f - h))
-    return num_outcomes_with_h_in_f / num_outcomes
+def probability(h, f):  return factorial(f) / ((2 ** f) * (factorial(h) * factorial(f - h)))
 
 print("Testing probability(5,8)...")
 assert probability(5, 8) == 0.21875, probability(5, 8)

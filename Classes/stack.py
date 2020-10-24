@@ -26,6 +26,7 @@ s.push('c')
 print("Asserting that s.data == {}".format(['a', 'b', 'c']))
 assert s.data == ['a', 'b', 'c']
 print("PASSED")
+
 s.pop()
 
 print("Asserting that s.data == {}".format(['a', 'b']))

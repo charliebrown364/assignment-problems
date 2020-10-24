@@ -5,7 +5,7 @@ def minimum(num_list):
             smallest_num = num
     return smallest_num
 
-# take an input list and sort its elements from least to greatest by repeatedly finding the smallest element and moving it to a new list
+# For any given list, the number of pairs of elements (that need to be compared by each algorithm) is exactly the same.
 
 def simple_sort(num_list):
     ans = []

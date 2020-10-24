@@ -3,7 +3,7 @@ class Shape():
         self.base = base
         self.height = height
         self.color = color
-    
+
     def describe(self):
         print("Base: {}".format(self.base))
         print("Height: {}".format(self.height))
@@ -44,6 +44,7 @@ class Square(Rectangle):
     def __init__(self, base, color):
         super().__init__(base, base, color)
 
+"""
 rect = Rectangle(5, 2, 'red')
 rect.describe()
 rect.render()
@@ -55,3 +56,4 @@ tri.render()
 sq = Square(5, 'green')
 sq.describe()
 sq.render()
+"""
