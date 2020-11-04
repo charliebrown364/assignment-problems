@@ -18,6 +18,12 @@ def estimate_solution(f, initial_guess, precision):
 def estimate_derivative(f, c, delta):
     return (f(c + 0.5*delta) - f(c - 0.5*delta)) / delta
 
+def f(x):
+    return 1 - x**2
+
+print(zero_of_tangent_line(f, 0.5, 0.001))
+
+"""
 print("Testing zero_of_tangent_line(f, 0.5)...")
 answer = zero_of_tangent_line(f, 0.5, 0.001)
 assert round(answer, 6) == 0.714286, round(answer, 6)
@@ -27,3 +33,4 @@ print("Testing estimate_solution(f, 0.5, 0.01)...")
 answer = estimate_solution(f, 0.5, 0.01)
 assert round(answer, 6) == 0.682328, round(answer, 6)
 print("passed")
+"""
