@@ -1,3 +1,5 @@
+# Write a function that takes the cartesian product of the grid_lines in the search space, evaluates the objective_function at all points of intersection, and returns the point where the objective_function takes the lowest value.
+
 def cartesian_product(arrays):
     
     ans = arrays[0]
@@ -33,8 +35,22 @@ def cartesian_product(arrays):
     
     return real_ans
 
-ans3 = cartesian_product([[1, 2], ['a', 'b', 'c'], [76]])
-print(ans3)
+def grid_search(objective_function, grid_lines):
 
-assert cartesian_product([['a'], [1, 2, 3], ['Y', 'Z']]) == [['a',1,'Y'], ['a',1,'Z'], ['a',2,'Y'], ['a',2,'Z'], ['a',3,'Y'], ['a',3,'Z']]
+    intersections = cartesian_product(grid_lines)
+    ys = [two_variable_function(pair[0], pair[1]) for pair in intersections]
+
+    for pair in intersections:
+        if two_variable_function(pair[0], pair[1]) == min(ys):
+            return pair
+
+# tests
+def two_variable_function(x, y):
+    return (x - 1) ** 2 + (y - 1) ** 3
+
+x_lines = [0, 0.25, 0.75]
+y_lines = [0.9, 1, 1.1, 1.2]
+grid_lines = [x_lines, y_lines]
+
+assert grid_search(two_variable_function, grid_lines) == [0.75, 0.9]
 print("passed")
