@@ -38,12 +38,22 @@ def cartesian_product(arrays):
 def grid_search(objective_function, grid_lines):
 
     intersections = cartesian_product(grid_lines)
-    ys = [two_variable_function(pair[0], pair[1]) for pair in intersections]
+    y_list = [two_variable_function(pair[0], pair[1]) for pair in intersections]
 
     for pair in intersections:
-        if two_variable_function(pair[0], pair[1]) == min(ys):
+        if two_variable_function(pair[0], pair[1]) == min(y_list):
             return pair
 
+def two_variable_function(x, y):
+    return (x**2)*(y**2) + 2*((y - 1)**2)
+
+x_lines = [0, 1]
+y_lines = [0, 1, 2]
+grid_lines = [x_lines, y_lines]
+
+print(grid_search(two_variable_function, grid_lines))
+
+"""
 # tests
 def two_variable_function(x, y):
     return (x - 1) ** 2 + (y - 1) ** 3
@@ -54,3 +64,4 @@ grid_lines = [x_lines, y_lines]
 
 assert grid_search(two_variable_function, grid_lines) == [0.75, 0.9]
 print("passed")
+"""

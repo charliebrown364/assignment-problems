@@ -16,7 +16,6 @@ def get_root(tree):
             ans.append(pair[0])
     return ans
 
-
 assert get_children('e', edges) == sorted(['a', 'i', 'g'])
 assert get_children('c', edges) == []
 assert get_children('f', edges) == ['h']

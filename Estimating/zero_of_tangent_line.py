@@ -21,8 +21,6 @@ def estimate_derivative(f, c, delta):
 def f(x):
     return 1 - x**2
 
-print(zero_of_tangent_line(f, 0.5, 0.001))
-
 """
 print("Testing zero_of_tangent_line(f, 0.5)...")
 answer = zero_of_tangent_line(f, 0.5, 0.001)

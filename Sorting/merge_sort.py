@@ -1,8 +1,8 @@
 def merge(x, y):
     ans = []
-    for i in range(len(x) + len(y)):
-        x_min = min(x) if len(x) > 0 else 1000
-        y_min = min(y) if len(y) > 0 else 1000
+    for i in range(len(x + y)):
+        x_min = min(x) if len(x) > 0 else 100000000
+        y_min = min(y) if len(y) > 0 else 100000000
         minimum = x_min if x_min < y_min else y_min
         current_list = x if minimum == x_min else y
         ans.append(minimum)

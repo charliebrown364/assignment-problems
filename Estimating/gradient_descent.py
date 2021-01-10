@@ -1,6 +1,4 @@
-import math
-
-def single_var_gradient_descent(f, x, alpha = 0.01, delta = 0.0001, num_iterations = 10000):
+def single_var_gradient_descent(f, x, alpha, delta, num_iterations):
     
     for i in range(num_iterations):
         derivative = (f(x + 0.5 * delta) - f(x - 0.5 * delta))/delta
@@ -35,8 +33,6 @@ def f(x, y):
 The minimum of f(x, y) = 1 + x^2 + y^2 is f(x, y) = 1. This occurs at the point (0, 0).
 3 
 
-"""
-
 def f(x, y):
     return 1 + x**2 + y**2
 
@@ -44,7 +40,6 @@ def f(x, y):
 print(gradient_descent(f, (1, 2)))
 # 1
 
-"""
 
 def f(x, y):
     return 1 + x**2 + 2*x + y**2 + 9*y
@@ -76,4 +71,5 @@ minimum of f(x, y) = f(-1, 4.5) = -20.25
 
 # part d
 print(gradient_descent(f, (0, 0)))
+
 """

@@ -1,14 +1,9 @@
-# python Assignment4/convert_to_base_2.py
+import math
 
 def convert_to_base_2(decimal_num):
 
     binary_array = []
-    length_of_binary_num = 0
-
-    for num in range(1000):
-        if (2 ** num) > decimal_num:
-            length_of_binary_num = num
-            break
+    length_of_binary_num = math.ceil(math.log(decimal_num) / math.log(2))
     
     for num in range(1, length_of_binary_num + 1):
         num_to_zero = length_of_binary_num - num
