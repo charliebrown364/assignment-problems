@@ -21,7 +21,7 @@ def expected_value(distribution):
     ans = 0
     for i in range(len(distribution)):
         ans += distribution[i]*i
-    return ans # / len(distribution)
+    return ans
 
 def average(distribution, num_times):
     nums = [random_draw(distribution) for i in range(num_times)]
