@@ -1,29 +1,31 @@
 # study: https://towardsdatascience.com/how-statistically-biased-is-our-news-f28f0fab3cb3
 
-find_info_on = ['CNN', 'FoxNews']
+find_info_on = []
+find_info_on_all = False
+
 print_all_names = False
 print_classifications = False
+print_observations = False # so far, just averages
+
+min_reliability = 50
+find_reliable = ['more_conservative']
+# find_bias (not coded)
+
+make_plot = False
 
 """
 
 Common sources:
 - AP
 - CNN
-- DailyWire
-- Forbes
 - FoxNews
-- MotherJones
 - MSNBC
 - NewYorkPost
 - NewYorkTimes
 - NewsMax
 - OneAmericaNewsNetwork
-- PBS
 - Politico
 - Reuters
-- TheBlaze
-- TheFederalist
-- VanityFair
 - Vox
 - WallStreetJournal
 - WashingtonPost
@@ -240,9 +242,138 @@ def report(source_name):
     if print_classifications:
         print("bias_classification: {}".format(correct_source['bias_classification']))
 
-for name in find_info_on:
-    report(name)
+def find_average(category, condition_function, print_word):
+    
+    related_sources = []
+    for source in all_sources_info:
+        if condition_function(source):
+            related_sources.append(source)
+    
+    if category == 'reliability':
+        average_reliability = True
+    elif category == 'bias':
+        average_reliability = True
+    elif category == 'both':
+        average_reliability = True
+        average_bias = True
+    else:
+        return 'not a valid category'
+    
+    average = {'name': 'n/a', 'reliability': 0, 'bias': 0}
+    for source in related_sources:
+        if average_reliability:
+            average['reliability'] += source['reliability']
+        if average_bias:
+            average['bias'] += source['bias']
+    average['reliability'] /= len(related_sources)
+    average['bias'] /= len(related_sources)
+
+    print('\nAverage of {}:'.format(print_word))
+    for (key, value) in average.items():
+        if key != 'name':
+            print('{}:'.format(key), round(value, 3))
+    
+if find_info_on_all:
+    for source in all_sources_info:
+        name = source['name']
+        report(name)
+else:
+    for name in find_info_on:
+        report(name)
 
 if print_all_names:
     for source in all_sources_info:
         print(source['name'])
+
+if print_observations:
+    find_average('both', lambda x : x['bias'] < -18, 'extremely biased towards the left')
+    find_average('both', lambda x : x['bias'] < -6, 'moderately biased towards the left')
+    find_average('both', lambda x : x['bias'] > -6 and x['bias'] < 6, 'neutral')
+    find_average('both', lambda x : x['bias'] > 6, 'moderately biased towards the right')
+    find_average('both', lambda x : x['bias'] > 18, 'extremely biased towards the right')
+
+if make_plot:
+
+    import matplotlib.pyplot as plt
+    plt.style.use('bmh')
+    
+    colors = ['#00d0ff', '#0000ff', '#000000', '#ff0000', '#8b0000']
+
+    biases_range = [[], [], [], [], []]
+    reliabilities_range = [[], [], [], [], []]
+
+    for source in all_sources_info:
+        
+        bias = source['bias']
+        reliability = source['reliability']
+        
+        if bias < -18:
+            biases_range[0].append(bias)
+            reliabilities_range[0].append(reliability)
+        elif bias < -6:
+            biases_range[1].append(bias)
+            reliabilities_range[1].append(reliability)
+        elif bias < 6:
+            biases_range[2].append(bias)
+            reliabilities_range[2].append(reliability)
+        elif bias < 18:
+            biases_range[3].append(bias)
+            reliabilities_range[3].append(reliability)
+        else:
+            biases_range[4].append(bias)
+            reliabilities_range[4].append(reliability)
+
+    progressive = plt.scatter(biases_range[0], reliabilities_range[0], marker='o', color=colors[0])
+    liberal = plt.scatter(biases_range[1], reliabilities_range[1], marker='o', color=colors[1])
+    neutral = plt.scatter(biases_range[2], reliabilities_range[2], marker='o', color=colors[2])
+    conservative = plt.scatter(biases_range[3], reliabilities_range[3], marker='o', color=colors[3])
+    more_conservative = plt.scatter(biases_range[4], reliabilities_range[4], marker='o', color=colors[4])
+
+    plt.legend((progressive, liberal, neutral, conservative, more_conservative),
+           ('progressive', 'liberal', 'neutral', 'conservative', 'more conservative'),
+           scatterpoints=1,
+           loc='upper right')
+
+    plt.xlabel('Bias')
+    plt.ylabel('Reliability')
+    plt.title('Bias vs. Reliability')
+    plt.savefig('politics.png')
+
+if find_reliable == ['all']:
+    find_reliable = ['progressive', 'liberal', 'neutral', 'conservative', 'more_conservative']
+
+for leaning in find_reliable:
+
+    reliable_progressive = []
+    reliable_liberal = []
+    reliable_neutral = []
+    reliable_conservative = []
+    reliable_more_conservative = []
+
+    for source in all_sources_info:
+        source_bias = source['bias']
+        source_reliability = source['reliability']
+
+        if source['reliability'] > min_reliability:
+            
+            if source_bias < -18:
+                reliable_progressive.append(source['name'])
+            elif source_bias < -6:
+                reliable_liberal.append(source['name'])
+            elif source_bias < 6:
+                reliable_neutral.append(source['name'])
+            elif source_bias < 18:
+                reliable_conservative.append(source['name'])
+            else:
+                reliable_more_conservative.append(source['name'])
+    
+    if leaning == 'progressive':
+        print("\nreliable_progressive:", reliable_progressive)
+    elif leaning == 'liberal':
+        print("\nreliable_liberal:", reliable_liberal)
+    elif leaning == 'neutral':
+        print("\nreliable_neutral:", reliable_neutral)
+    elif leaning == 'conservative':
+        print("\nreliable_conservative:", reliable_conservative)
+    elif leaning == 'more_conservative':
+        print("\nreliable_more_conservative:", reliable_more_conservative)

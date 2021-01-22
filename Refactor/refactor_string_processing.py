@@ -1,24 +1,22 @@
-string = '"alpha","beta","gamma","delta"\n1,2,3,4\n5.0,6.0,7.0,8.0'
-split_string = string.split('\n')
-strings = [x.split(',') for x in split_string]
-length_of_string = len(string)
-
-arr = []
-for string in strings:
-    new_string = []
-
-    for char in string:
-        
-        if char[0] == '"' and char[-1] == '"':
-            char = char[1:len(char) - 1]
-        elif '.' in char:
-            char = float(char)
+def parse_value(string):
+    if string[0] == '"' and string[-1] == '"':
+            return string.strip('"')
+        elif '.' in string:
+            return float(string)
         else:
-            char = int(char)
+            return int(string)
 
-        new_string.append(char)
+test_string = '"alpha","beta","gamma","delta"\n1,2,3,4\n5.0,6.0,7.0,8.0'
 
-    arr.append(new_string)
+def string_processor(test_string):
+    split_test_string = test_string.split('\n')
+    split_test_string_list = [x.split(',') for x in split_test_string]
 
-assert arr == [['alpha', 'beta', 'gamma', 'delta'], [1, 2, 3, 4], [5.0, 6.0, 7.0, 8.0]]
-print("passed")
+    ans = []
+    for value_list in split_test_string_list:
+        parsed_values = [parse_value(elem) for elem in value_list]
+        ans.append(parsed_values)
+    
+    return ans 
+
+print(string_processor(test_string))
