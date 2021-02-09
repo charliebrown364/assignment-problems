@@ -9,10 +9,11 @@ take' _ []     = []
 take' n (x:xs) = x : take' (n-1) xs
 
 tail' :: (Num i, Ord i) => i -> [a] -> [a]  
-tail' n _  
-    | n <= 0   = []  
-tail' _ []     = []  
-tail' n x = reverseList (take' n (reverseList x))
+tail' n = reverseList . take' n . reverseList
+
+-- f x y = negate (max (x tan (cos y)))
+-- equals
+-- f x = negate . max x . tan . cos
 
 main = print (tail' 4 [8, 3, -1, 2, -5, 7])
 -- [-1, 2, -5, 7]
