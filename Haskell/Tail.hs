@@ -11,7 +11,7 @@ take' n (x:xs) = x : take' (n-1) xs
 tail' :: (Num i, Ord i) => i -> [a] -> [a]  
 tail' n = reverseList . take' n . reverseList
 
--- f x y = negate (max (x tan (cos y)))
+-- f x y = negate max x tan cos y
 -- equals
 -- f x = negate . max x . tan . cos
 
