@@ -1,10 +1,10 @@
 # part a
 def collatz_iterations(number):
     num_iterations = 0
-    while not (number == 1):
+    while number != 1:
         num_iterations += 1
-        if (number % 2) == 0:  
-            number = number//2
+        if number % 2 == 0:  
+            number = number // 2
         else:
             number = 3*number + 1
     return num_iterations
