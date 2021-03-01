@@ -1,32 +1,36 @@
 #include <iostream>
 #include <cassert>
 
-int a(int n) {
-    if(n == 0) {
-        return 0;
-    } else if(n == 1) {
-        return 1;
-    } else {
-        return a(n - 1) + 2 * a(n - 2);
-    }
-}
-
-// I have no idea why this isn't working
-
 int seqSum(int n) {
-    int sum;
+    
+    int terms[n + 1];
+    terms[0] = 0;
+    terms[1] = 1;
+
+    for (int i = 2; i <= n; i++) {
+        terms[i] = terms[i - 1] + 2 * terms[i - 2];
+    }
+    
+    int sum = 0;
     for(int i = 0; i <= n; i++) {
-        sum += a(i);
+        sum += terms[i];
     }
     return sum;
+
 }
 
 int extendedSeqSum(int n) {
-    int sum;
-    for(int i = 0; i <= n; i++) {
-        sum += a(i);
+    
+    int terms[n + 1];
+    terms[0] = 0;
+    terms[1] = 1;
+    
+    for (int i = 2; i <= n; i++) {
+        terms[i] = terms[i - 1] + 2 * terms[i - 2];
     }
-    return seqSum(sum);
+    
+    return seqSum(terms[n]);
+
 }
 
 int main()
@@ -40,7 +44,7 @@ int main()
     assert(extendedSeqSum(2)==1);
     assert(extendedSeqSum(4)==21);
 
-    std::cout << "Success!";
+    std::cout << "Success!\n";
 
     return 0;
 }
