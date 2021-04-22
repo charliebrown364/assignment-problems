@@ -1,8 +1,5 @@
 def is_list_valid(row):
-    if None not in row and sum(row) != 15:
-        return False
-    else:
-        return True
+    return not (None not in row and sum(row) != 15)
 
 def is_valid(arr):
     
@@ -69,7 +66,11 @@ def find_magic_square():
                                 for num5 in range(1,10):
 
                                     if num5 not in [num1, num2, num3, num4]:
+                                        print("\nlist:", [num1, num2, num3, num4, num5])
                                         arr = clear_and_insert([num1, num2, num3, num4, num5])
+                                        print("arr :", arr)
+                                        quit()
+                                        
                                         if not is_valid(arr):
                                             continue
                                         
